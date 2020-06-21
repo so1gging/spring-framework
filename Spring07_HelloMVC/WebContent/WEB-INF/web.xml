@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>Spring07_HelloMVC</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <!-- ServletContext클래스 : 톰캣 컨테이너 실행 시 각 컨텍스트(웹 애플리케이션: 톰캣이 웹 애플리케이션을 관리하는 이름)마다 한 개의 ServletContext객체를 생성.
+  							그리고 톰캣 컨테이너가 종료하면 ServletContext 객체 역시 소멸. SevletContext객체는 웹 애플리케이션이 실행되면서
+  							애플리케이션 전체의 공통 자원이나 정보를 미리 바인딩해서 서블릿들이 공유하여 사용. -->
+  
+  <!-- ( listener ) -->
+  <!-- ContextLoaderListener : ServletContext의 라이프사이클에 맞추어,
+  								ApplicationContext를 ServletContext에 추가/삭제하도록 합니다. -->
+  								
+  <!-- DI를 선언할 applicationContext파일을 로딩하기 위해 알맞은 리스너와 Context Param을 설정해준다. -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+			
+  <!-- ContextLoaderListner는 기본적으로 /WEB-INF/applicationContext.xml 을 설정 파일로 로딩.
+  		다른 위치에 있을 때는 context-param설정을 통해 위치를 정해준다. 그리고 context파일이 많을 때는
+  		(콤마)를 찍고 다른 경로를 또 입력하면 된다.
+  		만약, context파일 이름이 applicationContext.xml과 applicationContext-ibtis.xml이라면
+  		applicationContext*.xml 이라고 설정하면 한 번에 두 가지 파일을 불러들인다. -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+  
+  <!--( DispatcherServlet 호출 )-->
+  <!-- DispatcherServlet 이란, 클라이언트의 요청을 받아 컨트롤러에게 클라이언트 요청을 전달한다. 또한, 컨트롤러를 통해 리턴된 결과값을 View에 전달하여 응답을 생성한다. -->
+  <!--  Spring에서 DispatcherServlet은 그 자체로서 서블릿이기 때문에 1개 이상의 DispatcherServlet을 설정하는 것이 가능하다.
+  		기존에는 모든 서블릿에 대해 URL매핑을 활용하기 위해서 web.xml에 모두 등록해주어야 했지만, dispatcher-servlet이 해당 어플리케이션으로 들어오는
+  		모든 요청을 핸들링 해준다.
+  		
+  		기본은 /WEB-INF/디렉토리의 [ServletName]-servlet.xml
+  		아래와 같은 경우는 hello-servlet.xml 파일로부터 설정 정보를 읽어옴.
+  -->
+  <servlet>
+  	<servlet-name>hello</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<!-- 기본위치는 [servlet-name]-servlet.xml 을 WEB-INF에서 불러오지만, 기타 다른 위치에 있을 경우에는
+		따로 위치를 지정한다. -->
+	<!--
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/hello-servlet.xml</param-value>
+		</init-param>
+	-->	
+  </servlet>
+  
+  <!-- 서블릿 매핑 -->
+  <!-- *.do로 오는 모든 요청은 servlet hello가 받는다! -->
+  <!--즉, hello.do 이렇게 요청을 받으면 dispathcerServlet이 받음.(hello는 dispatcherServlet이니까.)
+  		Url pattern 이 ~~.do 로 들어오게 되면, 위에 설정에 servlet name이 hello인 servlet을 실행해서
+  		Spring의 핵심인 DispatcherServlet을 실행한다. -->
+  
+  <!--	<url-pattern>을 *.do 로 설정함과 동시에 이제 모든 요청은(.do로 들어오는) DispatcherServlet의 영역이 된 셈이다.
+  		 DispatcherServlet에 대해 간단히 정의해보자면 우리가 각각 분리하여 만든 Model 파트와 Controller파트 View파트를 조합하여 브라우저로 출력해주는 역할을 수행하는 클래스.
+  
+  		=> dispatcherServlet는 controller를 찾아야 하는데, 어느 패키지에서 찾아야 하는지 모른다.
+  		=> 그렇기 때문에, servlet-context.xml <context:componet-scan>에 의해서 컨트롤러의 패키지를 알려준다.
+  		=> 그러면 그 안의 파일들을 검색하기 시작! ==> @Controller를 만나면 그 클래스가 Controller라는 것을 인식한다. -->
+  		
+  <servlet-mapping>
+  	<servlet-name>hello</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<a href="hello.do">hello</a>
+	<a href="bye.do?name=spring">bye</a>
+	
+	<!-- 
+		( 1 ) 클라이언트가 URL 로 접근하여 정보를 요청(VIEW에서 요청한다. [ex] hello.do , bye.do )
+		
+		( 2 ) *.do로 오는 요청을 dispatcher가 가로채서 해당 요청을 매핑한 컨트롤러가 있는지 검색한다. 
+				=> 가로챌 수 있는 이유는 web.xml에 등록된 DispatcherServlet의 <url-pattern>이 '.do'와 같이
+					해당 어플리케이션의 모든 URL로 등록되있기 때문이다. 만약 특정 URL만 적용하고 싶다면, <url-pattern>의 내용을 바꿔주어 범위를 변경시켜주면 된다.
+					
+				=> dispatcherServlet는 controller를 찾아야 하는데, 어느 패키지에서 찾아야 하는지 모른다.
+				dispatcher의 설정파일인 [ServletName]-servlet.xml 에서 <context:componet-scan>에 의해서 컨트롤러의 패키지를 찾는다. 
+				@Controller를 만나면 그 클래스가 Controller라는 것을 인식한다.
+				그 Controller에 해당 요청을 매핑한 컨트롤러가 있는지 찾는다. 
+				: HandlerMapping은 DispatcherServlet이 '어떤 컨트롤러를 사용하는가' 라고 물어봤을 때
+				그에 대한 답변을 해주는 객체. 
+			
+		( 3 ) 핸들러 매핑이 해당 요청을 처리할 컨트롤러를 찾아냈다면 요청을 컨트롤러에게 보내준다.
+		
+		( 4 ) 컨트롤러를 해당 요청을 처리한 후에 보통 컨트롤러는 요청을 응답 받을 View의 이름을 리턴하게 된다.
+		
+		( 5 ) 컨트롤러에서 보내온 View이름을 토대로 처리할 View 를 검색 (ViewResolver)
+		
+		( 6 ) 처리결과를 View에 송신
+		
+		( 7 ) 처리결과가 포함된 View를 클라이언트에 출력
+		
+	 -->
+	 
+	 <!-- Spring 구조
+	 		src) java : 자바코드 / webapp :jsp,html,.. view파일들.  /resources : 필요한 xml파일들
+	 		target)
+	 		pom.xml) maven 설정파일들.
+	 		webapp 폴더 ) resources - 웹 상에 사용될 CSS,JS파일들 / views : HTML,JSP등 사용자 화면에 보여질 웹 문서
+	  -->
+</body>
+</html>

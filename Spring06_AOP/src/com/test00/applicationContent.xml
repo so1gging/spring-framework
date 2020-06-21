@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+   <!-- 'proxy를 자동으로 생성하고 관리하겠다' 라는 의미 -->
+   <aop:aspectj-autoproxy/>
+   <bean id="myAspect" class="com.test00.MyAspect"></bean>
+   
+   <!-- CC -->
+   <bean id="myDog" class="com.test00.Dog"></bean>
+   
+   
+   <!-- AOP 설정 -->
+   
+   <!--<aop:config>   
+      <aop:aspect ref="myAspect">        
+        <aop:before method="before" pointcut="execution( public * *( .. ) )"/>      
+         <aop:after method="after" pointcut="execution( public * *( .. ) )"/>
+      </aop:aspect>
+   </aop:config>
+   -->
+
+</beans>

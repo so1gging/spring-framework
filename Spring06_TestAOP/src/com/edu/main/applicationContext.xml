@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- 'proxy를 자동으로 생성하고 관리하겠다' 라는 의미 -->
+   <aop:aspectj-autoproxy/>
+   
+	<!--사각형 or 삼각형  width:3 / height: 5 -->
+	<!-- bean 3개, aop관련 설정(<aop:config>) -->
+	<bean id="rect" class="com.edu.entity.Rectangle">
+		<constructor-arg value="사각형"></constructor-arg>
+		<constructor-arg value="3"></constructor-arg>
+		<constructor-arg value="5"></constructor-arg>
+	</bean>
+	
+	<bean id="tri" class="com.edu.entity.Triangle">
+		<constructor-arg value="삼각형"></constructor-arg>
+		<constructor-arg value="3"></constructor-arg>
+		<constructor-arg value="5"></constructor-arg>
+	</bean>
+	
+	<bean id="myAspect" class="com.edu.aop.MyAspect"></bean>
+	
+<!--
+   <aop:config>
+      <aop:aspect ref="myAspect">
+         <aop:before method="before" pointcut="execution( public * *( .. ) )"/>
+         <aop:after method="after" pointcut="execution( public * *( .. ) )"/>
+      </aop:aspect>
+   </aop:config>
+ -->
+   
+   <aop:config>
+   		<aop:pointcut expression="execution(* viewSize())" id="viewPoint"></aop:pointcut>
+   		<aop:aspect ref="myAspect">
+   			<aop:before method="before" pointcut-ref="viewPoint"/>
+   			<aop:after method="after" pointcut-ref="viewPoint"/>
+   		</aop:aspect>
+   </aop:config>
+
+</beans>

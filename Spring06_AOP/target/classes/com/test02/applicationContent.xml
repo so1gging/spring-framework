@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<!-- CC: 핵심기능 , Primary(Core) Concern 을 구현한 코드 -->
+	<bean id="man" class="com.test02.Man"></bean>
+	<bean id="woman" class="com.test02.Woman"></bean>
+
+
+	<!-- 
+		Advice : Cross-Cutting Concern을 구현한 코드
+		JointPoint : Advice가 적용 가능한 지점
+		PointCut : JointPoint의 부분집합. 실제 Advice가 적용되는 JointPoint. 
+		-->
+	
+	<!-- myAdvice: 공통기능 -->
+	<bean id="myAdvice" class="com.test02.MyAspect"></bean>
+	
+	<!-- proxy 객체 생성 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
+	
+	<!-- advisor : advice + pointcut -->
+	<bean id="myAdvisor" class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+		<!-- 공통 관심사. -->
+		<property name="advice" ref="myAdvice"></property><!-- 부가기능을 담고있는 모듈 -->
+		<!-- public 으로 시작, return 뭐든지,  이름뭐든지 ,매개변수 개수 상관 없다는 뜻. -->
+		<property name="expression" value="execution(public * *(..))"></property>
+		<!-- execution(public * com.test02.Woman.classWork(..)) -->
+		<!-- advice를 위치할 건데, 어느 곳에 위치 할 것이냐면, public * *(..) 일 때 실행시킬 것이다. -->
+	</bean>
+</beans>
