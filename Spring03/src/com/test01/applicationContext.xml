@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 자바객체 -->
+	<!-- 해당 클래스의 static method를 호출해서 bean을 생성한다 . 이때 생성되는 빈은 Friday .  -->
+	<!-- 원래는 해당 클래스의 생성자가 호출 되면서 bean이 생성. 하지만 지금은 생성자가 호출이 안된다. -->
+	<!-- abstract class 이기 때문에 생성하지 못함. 생성자 대신 getInstance를 호출해서 객체를 리턴 받겠다. bean을 리턴 받겠다. 객체 == bean -->
+	<!-- 일반클래스: 생성자 호출 
+		추상클래스: 안됨. getInstance 메소드를 호출한다.
+		그렇기 때문에, factory-method에 호출될 메소드를 setting 해주는 것이다.
+	
+	 -->
+	<bean id="singleton" class="com.test01.AbstractTest" factory-method="getInstance">
+		
+	</bean>
+
+</beans>

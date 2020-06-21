@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 아무도 설정해주지 않으면 기본생성자로 bean이 생성된다. 하지만 우리는 매개변수 생성자도 만들었었다. 그것을 해보자. -->
+	<bean id="banana" class="com.test01.MessageBeanImpl"></bean>
+	
+	<bean id="apple" class="com.test01.MessageBeanImpl">
+		<!-- 생성자를 이용해서 객체를 생성될 때 데이터를 집어 넣겠다. -->
+		<constructor-arg>
+			<value>apple</value>
+		</constructor-arg>
+		<constructor-arg value="10000"></constructor-arg>
+	</bean>
+	
+	<bean id="mango" class="com.test01.MessageBeanImpl">
+		<!-- index 컬럼으로 매개변수 순서를 지정해줄 수 있다. -->
+		<constructor-arg index="1" value="15000"></constructor-arg>
+		<constructor-arg  index="0" value="mango"></constructor-arg>
+	</bean>
+	
+</beans>

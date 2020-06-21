@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- value 에 다른 bean를 어떻게 넣을까? -->
+	
+	<!-- Emp 클래스 bean 생성 -->
+	<!-- 1. 이순신 3000000 2. 홍길동 3500000 -->
+	<bean id="lee" class="com.test04.Emp">
+		<property name="name" value="이순신"></property>
+		<property name="salary" value="3000000"></property>
+	</bean>
+	
+	<bean id="hong" class="com.test04.Emp">
+		<property name="name" value="홍길동"></property>
+		<property name="salary" value="3500000"></property>
+	</bean>
+	
+	<!-- 객체는 ref="id"로 >>참조<<한다. -->
+	<bean id="less" class="com.test04.Developer">
+		<constructor-arg index="0" ref="lee"></constructor-arg>
+		<constructor-arg index="1" value="개발"></constructor-arg>
+	</bean>
+	
+	<bean id="honggd" class="com.test04.Engineer">
+		<constructor-arg index="0" ref="hong"></constructor-arg>
+		<constructor-arg index="1" value="기술"></constructor-arg>
+	</bean>
+	
+	
+</beans>

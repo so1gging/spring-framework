@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- c: constructor -->
+	<bean id="ju" class="com.test05.Emp" c:name="주수현" c:salary="3000000" />
+	<bean id="jush" class="com.test05.Developer" c:emp-ref="ju" c:dept="개발팀"></bean>
+	
+	<!-- p: property -->
+	<bean id="jang" class="com.test05.Emp" p:name="장정호" p:salary="3500000" />
+	<bean id="jangjh" class="com.test05.Engineer" p:emp-ref="jang" p:dept="기술팀"></bean>
+	
+</beans>
