@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		<!-- 1. NickName 클래스로 빈 생성 -->
+		<bean id="nickname" class="com.test01.NickName"></bean>
+		<!-- 2. MyNickNamePrn 클래스로 빈 생성 -->
+		<bean id="myNickName" class="com.test01.MyNickNamePrn">
+			<property name="nickName" ref="nickname"></property>
+		</bean>
+
+</beans>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 
+		@Component : 빈을 등록하길 원하는 클래스에 추가.
+		<context:component-scan> 태그에 spring이 bean으로 등록할 클래스가 위치한 패키지를 지정.
+		클래스 명이 SomeClass면 id는 someClass가 기본값.
+		bean이름을 직접 지정할 경우, @Component("mySomeClass") 로 지정.	
+	 -->
+
+	<!-- 작업을 하고 있는 패키지의 컴포넌트를 스캔하겠다. annotation을 달아 둔 클래스들을 스캔하겠다.
+		해당 패키지 안에 있는 클래스들을 다 스캔. -->
+	<!-- 어노테이션에 따라 빈들이 주입된다.
+	@Component 가 붙은 클래스는 모두 빈으로 생성. <bean id="..."></bean>과 같다. 이때 id는 클래스의 이름이자 앞 글자가 소문자인 이름.
+	@Autowired 는 생성되어있는 빈들 중에서 자동으로 빈이 주입된다. 생성되어있는 bean이 주입된다고 생각! -->
+	
+	<!-- 사용자 클래스를 스프링 빈으로 등록하는 가장 쉬운 방법은 클래스 선언부 위에 Component Annotation을 사용하는 것.
+	  @Component가 붙은 클래스는 스프링 빈 객체로 등록이 되어 객체 생성/삭제를 스프링에서 관리할 수 있음. -->
+	<context:component-scan base-package="com.test01.anno"></context:component-scan>
+	
+	<!-- 
+		Component가 달려있는 친구들 -> bean이 생성된다.
+		bean 두개 생성 -> MyNickNamePrn,NickName
+		Autowired 1. 타입이 동일한 bean을 먼저 확인!
+	
+	 -->
+	 
+	 <!-- spring framework에서 annotation 사용하기 위한 설정
+	 	1. <context:component-scan base-package=".."></context:component-scan>
+	 	@Component,@Controller,@Service,@Repository 등의 annotation 자동처리.
+	 	
+	 	2. CommonAnnotationBeanPostProcessor 클래스를 설정파일에 bean객체로 등록하여 annotation 적용.
+	 	<bean class="org.springframework.beans. ... commomAnnotationBeanPostProcessor> 로 만든다.
+	 	
+	 	3. <context:annotation-config >이용.
+	 	
+	 	4. mvc:annotation=driven
+	 	
+	 	
+	 	4개의 stereotype annotation
+	 	 @Component, @Repository(dao) , @Service(biz), @Controller
+	 	 @Component : 클래스에 선언하며 해당 클래스를 자동으로 bean 등록.
+	 	 @Repository : 일반적으로 dao에 적용.
+	 	 @Service : 비즈니스 클래스에 사용
+	 	 @Controller : 컨트롤러로 인식한다.
+	 	 
+	 	 @Autowired : spring에서 의존관계를 자동으로 설정. byType으로 의존관계를 자동으로 설정할 경우 같은 타입의 bean이 2개 이상 존재하게 되면 예외 발생.
+	 	 	-> @Qualifier("test") 를 이용하여 특정 빈을 사용하도록 하여 문제 해결 가능. 같은 타입의 bean들 중 test를 사용하겠다.
+	 	 	-> 우리는 byType으로 검색을 하다가  => byName으로 찾아준다.
+	 	 	
+	 	 @Qualifier : @Autowired 어노테이션이 타입기반 이기에 같은 타입 2개 이상 존재할 경우
+	 	 			  특정 bean을 사용하도록 선언.
+	 	 			  
+	 	 @Required : 필수 property임을 명시하는 것, setter에 붙이면 된다.
+	 	 @Exception을 DataAccessException으로 변환.
+	 	 
+	 	 @Service : 해당 anotaion을 적용한 class는 비즈니스 로직으로 등록
+	 	 @Resource : 어플리케이션에서 필요로 하는 자원을 자동으로 연결할 때 사용.
+	 	 			 name속성에 자동으로 연결될 빈 객체의 이름을 입력한다.(javax.annotation.Resource )
+	 	 			 (byName -> byType)
+	 	 			 ex) @Resource(name="test")
+	 	 
+	 	 	
+	  -->
+
+</beans>
