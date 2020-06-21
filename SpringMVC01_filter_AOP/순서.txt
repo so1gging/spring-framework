@@ -1,0 +1,22 @@
+SpringMVC
+1.pom.xml : ojdbc6(+repository), mybatis, mybatis-spring,commons-dbcp,srping-orm 추가
+2.web.xml : root-context ==> applicationContext.xml 로 변경 , encoding filter
+3. /WEB-INF/spring/sqls/test.sql
+4. dto, dao, biz, controller
+5. index.html, mvclist.jsp
+6. src/main/resources/mybatis/board-mapper.xml
+7. src/main/resources/mybatis/db.properties
+8. /WEB-INF/spring/sqls/config.xml
+9. applicationContext.xml, servlet-context.xml
+
+_filter
+10. com/mvc/upgrade/common/filter/Logfilter
+11. web.xml : filter 추가
+
+_aop
+12. pom.xml : aspectjweaver, aspectjrt
+13. com/mvc/upgrade/common/aop/LogAop
+공통관심 : ccc , 핵심관심: cc
+14. WEB-INF/spring/appServlet/aop-context.xml
+15. web.xml : aop-context추가(init-param)
+16. src/main/resources/log4j.xml(logger추가)

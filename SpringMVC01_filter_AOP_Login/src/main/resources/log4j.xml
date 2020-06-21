@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- 
+	
+		FATAL : 크리티컬 에러 발생시
+		ERROR : 일반 에러
+		WARN : 주의할 필요가 있을 때
+		INFO : 일반 정보
+		DEBUG : 상세 정보
+		
+		우선순위가 존재한다.
+		적은 순서대로!
+		
+		dao에 select한다고 치자. 
+		
+		==> 주입 before
+		selectList
+		==> 주입 after
+		요청이 들어오면 프록시가 요청을 가로채서 타겟과 advice들을 조합시켜서 해당 advice가 어느 포인트 컷에 들어갈 지 조립한 후에
+		이 내용들을 실행한다. 즉, 프록시를 생각해보면  before가 들어가고 target이 들어가고 after가 들ㅇ갈 것이다.
+		
+		
+	 -->
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Application Loggers -->
+	<logger name="com.mvc.upgrade">
+		<level value="info" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+	
+	<!-- add -->
+	<logger name="org.ibatis">
+		<level value="info"/>
+	</logger>
+	<logger name="java.sql"><!-- sql에관련된 내용들을 받아와서 log를 찌긍ㄹ 수 있겠금 하낟. -->
+		<level value="info"/>
+	</logger>
+	<!-- log4j에 설정되어있는 log들을 바탕으로 찍힌다. -->
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>

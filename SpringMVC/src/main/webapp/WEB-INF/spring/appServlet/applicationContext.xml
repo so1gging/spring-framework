@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- sqlMapConfig.xml파일을 대체한다 -->
+	
+	<!-- db.properties 읽어오기 => bean으로 관리할 것이다. -->
+	<!-- classpath:라는 이름으로 경로가 잡혀있다. 그 안의 mybatis폴더 안의 db.properties라 작성해주면 된다.
+	해당 파일을 읽어서, 어떤 클래스가 생성이 될 것이다. 그 properties안의 값들을 쓸 수있겟음 클래스를 이용해서 bean을 만들어 둔 것이다.
+	 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:mybatis/db.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- dataSorce : db.properties 파일의 설정값을 읽어서 DB와 스프링을 연동시켜준다. -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>	
+	</bean>
+	
+	<!-- SqlSessionFactoryBean클래스: SQL 실행시 객체를 생성해준다.  -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mybatis/mappers/*-mapper.xml"></property>
+	</bean>
+	
+	<!--sqlSession을 추가. -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"></constructor-arg>
+	</bean>
+		
+</beans>
