@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- bean태그로 스프링 실행시 생성할 빈을 설정한다. -->
+<!-- bean 태그에 사용되는 여러가지 속성들 -->
+<!-- 1. id : bean 객체의 고유 이름. 빈 id를 이용해서 빈에 접근한다. 
+	 2. name : 객체의 별칭
+	 3. class : 생성할 클래스. 패키지 이름까지 입력.
+	 4. constructor-arg : 생성자를 이용해 값을 주입할 때 사용
+	 5. property : setter를 이용해 값을 주입할 때 사용.  -->
+
+
+<!-- 클래스 실행 시, <bean>태그를 이용해 com.test.PersonServiceImpl클래스에 대한 빈을 생성한다.
+그리고 이 빈에 대해 접근할 수 있는 빈 id를 personService로 지정한 후 <property>태그를 이용해 PersonServiceImpl 클래스의 객체의 
+name 속성에 <value>태그 값으로 초기ㅘ 한다. 
+소스 코드에 new를 이용해 직접 객체를 생성하던 것을 person.xml에서 설정한 것이다.
+ -->
+<bean id="personService" class="com.test.PersonServiceImpl">
+	<property name="name" value="이곡길"></property>
+	<property name="age">
+		<value>20</value>
+	</property>
+</bean>
+
+</beans>
